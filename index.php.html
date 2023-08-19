@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jam Dinding</title>
+    <style>
+        body{
+            background-image: url("assets/image-1.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        #cover{
+            width: 340px;
+            height: 340px;
+            background-image: url("assets/clock.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        #clock{
+            width: 130px;
+            height: 130px;
+            background-image: url("assets/img-bg-1.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: absolute;
+        }
+
+        .center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .circle{
+            border-radius: 300px;
+        }
+
+        #needle-second {
+            width: 2px;
+            height: 150px;
+            background-color: #000;
+            transform: translate(-50%, -100%);
+            transform-origin: bottom;
+        }
+
+        #needle-minutes {
+            width: 4px;
+            height: 120px;
+            background-color: #000;
+            transform: translate(-50%, -100%);
+            transform-origin: bottom;
+        }
+
+        #needle-hour {
+            width: 6px;
+            height: 100px;
+            background-color: #000;
+            transform: translate(-50%, -100%);
+            transform-origin: bottom;
+        }
+
+        #dot-center{
+            width: 20px;
+            height: 20px;
+            background-color: #000000;
+            border-radius: 50%;
+        }
+
+        .shadow{
+            box-shadow: 0 0 25px 0 rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+<div id="cover" class="center circle shadow">
+    <div id="clock" class="center circle shadow">
+        <div id="dot-center" class="center"></div>
+        <div id="needle-second" class="center"></div>
+        <div id="needle-minutes" class="center"></div>
+        <div id="needle-hour" class="center"></div>
+    </div>
+</div>
+<script>
+    let needleSecond = document.getElementById('needle-second');
+    let needleMinutes = document.getElementById('needle-minutes');
+    let needleHour = document.getElementById('needle-hour');
+
+    const clock = () => {
+        let date = new Date();
+        let h = date.getHours();
+        let m = date.getMinutes();
+        let s = date.getSeconds();
+
+        let transformSecond = 'translate(-50%,-100%) rotate(' + (s * 6) + 'deg)';
+        let transformMinutes = 'translate(-50%,-100%) rotate(' + (m * 6) + 'deg)';
+        let transformHour = 'translate(-50%,-100%) rotate(' + (h * 30 + m * (360 / 720)) + 'deg)';
+
+        setTimeout(()=>{
+            clock();
+            needleSecond.style.transform = transformSecond;
+            needleMinutes.style.transform = transformMinutes;
+            needleHour.style.transform = transformHour;
+        })
+    }
+    clock() // run clock function
+</script>
+</body>
+</html>
